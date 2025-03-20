@@ -81,9 +81,7 @@ After obtaining the corresponding segmentation mask, simply modify the file path
 We appreciate the open source of the following projects:
 
 * [diffusers](https://github.com/huggingface/diffusers)
-
 * [Semantic Image Inversion and Editing using Rectified Stochastic Differential Equations](https://github.com/LituRout/RF-Inversion)
-
 * [Taming Rectified Flow for Inversion and Editing](https://github.com/wangjiangshan0725/RF-Solver-Edit)
 
 ## Citation
