@@ -118,7 +118,6 @@ os.makedirs(save_dir, exist_ok=True)
 
 def predict_outpainting_mask(
     pil_image,
-    # c_x, c_y, crop_width, crop_height,
     r_x,
     r_y,
     resize_width,
@@ -127,17 +126,7 @@ def predict_outpainting_mask(
     full_height,
 ):
     background = Image.new("RGB", (full_width, full_height), (0, 0, 0))
-    mask = Image.new("L", (full_width, full_height), 0)  # 初始全黑
-
-    # crop
-    # img_w, img_h = pil_image.size
-    # crop_box = (
-    #     max(c_x, 0),
-    #     max(c_y, 0),
-    #     min(c_x + crop_width, img_w),
-    #     min(c_y + crop_height, img_h)
-    # )
-    # cropped = pil_image.crop(crop_box)
+    mask = Image.new("L", (full_width, full_height), 0)
 
     # resize
     resized = pil_image.resize((resize_width, resize_height), Image.LANCZOS)
@@ -154,7 +143,7 @@ def predict_outpainting_mask(
     if (src_right > src_left) and (src_bottom > src_top):
         valid_region = resized.crop((src_left, src_top, src_right, src_bottom))
         background.paste(valid_region, (paste_x, paste_y))
-        mask.paste(255, (paste_x, paste_y, paste_max_x, paste_max_y))  # 修改这里为255
+        mask.paste(255, (paste_x, paste_y, paste_max_x, paste_max_y))
 
     background.save(os.path.join(save_dir, "background.png"))
     mask.save(os.path.join(save_dir, "mask.png"))

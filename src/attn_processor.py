@@ -171,7 +171,7 @@ class PersonalizeAnythingAttnProcessor:
                 key = apply_rotary_emb(key, image_rotary_emb)
             
             ###################################################################################
-            # 获取原位置的 embedding
+            # get original position emb
             def get_concept_rotary_emb(ori_rotary_emb, mask):
                 enc_emb = ori_rotary_emb[:512, :]
                 hid_emb = ori_rotary_emb[512:, :]
@@ -390,12 +390,12 @@ class MultiPersonalizeAnythingAttnProcessor:
                 return image_rotary_emb
             
             if concept_process:
-                # 选项 1: 使用原始位置嵌入 + 多个 shift_masks
+                # 1. use original position emb with plural masks
                 image_rotary_emb_0 = get_concept_rotary_emb(image_rotary_emb[0], self.shift_masks)
                 image_rotary_emb_1 = get_concept_rotary_emb(image_rotary_emb[1], self.shift_masks)
                 image_rotary_emb = (image_rotary_emb_0, image_rotary_emb_1)
                 
-                # 选项 2: 使用文本嵌入 + 多个 masks
+                # 2. use text emb with plural masks
                 # total_dims = sum((mask == 1).sum().item() for mask in self.masks)
                 # concept_rotary_emb_0 = torch.ones((total_dims, 128)).to(self.device)
                 # concept_rotary_emb_1 = torch.zeros((total_dims, 128)).to(self.device)
