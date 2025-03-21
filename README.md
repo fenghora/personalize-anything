@@ -21,7 +21,7 @@
 Clone the repo first:
 
 ```Bash
-git https://github.com/fenghora/personalize-anything.git
+git clone https://github.com/fenghora/personalize-anything.git
 cd personalize-anything
 ```
 
